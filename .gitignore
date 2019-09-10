@@ -1,0 +1,14 @@
+# Byte-compiled/optimized files
+__pycache__/
+
+# Distribution/packaging
+*.egg-info/
+build/
+dist/
+
+# Environment
+venv*/
+
+# IDE, editors
+.idea/
+.vscode/
