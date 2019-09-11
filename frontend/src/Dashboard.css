@@ -2,3 +2,28 @@
     display: flex;
     align-items: stretch;
 }
+
+.SidePanel {
+    background-color: #e7f4fd;
+    padding: 10px;
+}
+
+.Filters {
+    display: flex;
+}
+
+.Filters > div:first-child {
+    min-width: 250px;
+    max-width: 400px;
+}
+
+.Filters p {
+    margin: 1rem 0;
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+.ApplyFilters {
+    margin-top: 3rem;
+    margin-left: 1rem;
+}
