@@ -27,3 +27,8 @@
     margin-top: 3rem;
     margin-left: 1rem;
 }
+
+main {
+    flex-grow: 1;
+    padding: 10px;
+}

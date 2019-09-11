@@ -11,9 +11,15 @@ export default class extends React.Component {
         super(props);
         this.onCampaignChange = this.onCampaignChange.bind(this);
         this.onSourceChange = this.onSourceChange.bind(this);
+        this.updateChart = this.updateChart.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateChart();
     }
 
     state = {
+        filtersSummary: '',
         selectedCampaigns: [],
         selectedSources: []
     };
@@ -24,6 +30,22 @@ export default class extends React.Component {
 
     onSourceChange(selected, action) {
         this.setState({selectedSources: selected});
+    }
+
+    filterSummary(name, array) {
+            let summary = '';
+            if (array && array.length > 0) {
+                summary += `${name} ` + array.map(e => `"${e.label}"`).join(' and ');
+            } else {
+                summary += `All ${name}s`;
+            }
+            return summary;
+    }
+
+    updateChart() {
+        this.setState({filtersSummary:
+                this.filterSummary('Datasource', this.state.selectedSources) + '; '
+                + this.filterSummary('Campaign', this.state.selectedCampaigns)});
     }
 
     render() {
@@ -43,12 +65,17 @@ export default class extends React.Component {
                                 onChange={this.onCampaignChange}/>
                         </div>
                         <div>
-                            <button className='ApplyFilters'>
+                            <button
+                                className='ApplyFilters'
+                                onClick={this.updateChart}>
                                 Apply
                             </button>
                         </div>
                     </div>
                 </div>
+                <main>
+                    <h2>{this.state.filtersSummary}</h2>
+                </main>
             </div>
         )
     }
