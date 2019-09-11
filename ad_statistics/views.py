@@ -1,6 +1,8 @@
 from typing import List
 
 from django.db.models import Sum
+from django.db.models import Value
+from django.db.models.functions import Coalesce
 from rest_framework import viewsets
 
 from ad_statistics.models import Campaign
@@ -39,7 +41,7 @@ class DailyStatisticViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         query = Statistic.objects.values('date').annotate(
             total_clicks=Sum('clicks'),
-            total_impressions=Sum('impressions')).order_by('date')
+            total_impressions=Coalesce(Sum('impressions'), Value(0))).order_by('date')
         campaigns = self._csv_param('campaigns')
         if campaigns:
             query = query.filter(campaign_id__in=campaigns)
