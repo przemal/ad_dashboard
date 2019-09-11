@@ -21,3 +21,12 @@ class StatisticSerializer(serializers.ModelSerializer):
     class Meta:
         model = Statistic
         fields = '__all__'
+
+
+class DailyStatisticSerializer(serializers.ModelSerializer):
+    total_clicks = serializers.IntegerField()
+    total_impressions = serializers.IntegerField()
+
+    class Meta:
+        model = Statistic
+        fields = ('date', 'total_clicks', 'total_impressions')
