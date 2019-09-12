@@ -1,11 +1,11 @@
 import React from 'react';
+import {
+    API_URL,
+    DAILY_STATISTICS_URL
+} from './constants'
 import AdStatisticsChart from './components/AdStatisticsChart'
 import MultiSelect from './components/MultiSelect'
 import './Dashboard.css';
-
-
-const API_URL = 'http://localhost:8000/api/';
-const DAILY_STATISTICS_URL = API_URL + 'statistics/daily';
 
 
 export default class extends React.Component {
