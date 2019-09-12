@@ -1,9 +1,11 @@
 import React from 'react';
+import AdStatisticsChart from './components/AdStatisticsChart'
 import MultiSelect from './components/MultiSelect'
 import './Dashboard.css';
 
 
 const API_URL = 'http://localhost:8000/api/';
+const DAILY_STATISTICS_URL = API_URL + 'statistics/daily';
 
 
 export default class extends React.Component {
@@ -42,8 +44,22 @@ export default class extends React.Component {
             return summary;
     }
 
+    selectedFilters() {
+        let filters = {};
+        function setFilterValues(name, array) {
+            if (array && array.length > 0) {
+                filters[name] = array.map(e => e.value);
+            }
+        }
+        setFilterValues('campaigns', this.state.selectedCampaigns);
+        setFilterValues('sources', this.state.selectedSources);
+        return filters;
+    }
+
     updateChart() {
-        this.setState({filtersSummary:
+        this.setState({
+            filters: this.selectedFilters(),
+            filtersSummary:
                 this.filterSummary('Datasource', this.state.selectedSources) + '; '
                 + this.filterSummary('Campaign', this.state.selectedCampaigns)});
     }
@@ -75,6 +91,9 @@ export default class extends React.Component {
                 </div>
                 <main>
                     <h2>{this.state.filtersSummary}</h2>
+                    <AdStatisticsChart
+                        dataUrl={DAILY_STATISTICS_URL}
+                        dataParams={this.state.filters}/>
                 </main>
             </div>
         )
